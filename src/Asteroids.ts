@@ -24,58 +24,41 @@ import {
   WaitForStartSystem,
 } from './systems';
 
-export class Asteroids {
-  private readonly engine:Engine;
-  private readonly tickProvider:RAFTickProvider;
-  private readonly creator:EntityCreator;
-  private readonly keyPoll:KeyPoll;
-  private readonly config:GameConfig;
-  private readonly audioContext = new AudioContext();
-  private readonly audioDB = new Map<string, AudioBuffer>();
+export async function asteroids(container:HTMLElement) {
+  const engine = new Engine();
+  const creator = new EntityCreator(engine);
+  const keyPoll = new KeyPoll();
+  const config = new GameConfig(container.clientWidth, container.clientHeight);
+  const tickProvider = new RAFTickProvider();
+  const audioContext = new AudioContext();
+  const audioDB = new Map<string, AudioBuffer>();
+  const soundNames = [asteroidSound, shipSound, shootSound];
 
-  constructor(private container:HTMLElement, width:number, height:number) {
-    this.engine = new Engine();
-    this.creator = new EntityCreator(this.engine);
-    this.keyPoll = new KeyPoll();
-    this.config = new GameConfig(width, height);
-    this.tickProvider = new RAFTickProvider();
-  }
-
-  public async start():Promise<void> {
-    await this.loadSounds();
-    this.tickProvider.add(delta => this.engine.update(delta));
-    this.tickProvider.start();
-  }
-
-  private async loadSounds() {
-    const soundNames = [asteroidSound, shipSound, shootSound];
-    const promises = soundNames.map(name => this.loadSound(name));
-    await Promise.all(promises);
-    this.init();
-  }
-
-  private async loadSound(url:string):Promise<void> {
+  const loadSound = async (url:string):Promise<any> => {
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
-    const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
-    this.audioDB.set(url, audioBuffer);
-  }
+    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+    audioDB.set(url, audioBuffer);
+  };
 
-  private init() {
-    this.engine.addSystem(new WaitForStartSystem(this.creator), SystemPriorities.preUpdate);
-    this.engine.addSystem(new GameManager(this.creator, this.config), SystemPriorities.preUpdate);
-    this.engine.addSystem(new MotionControlSystem(this.keyPoll), SystemPriorities.update);
-    this.engine.addSystem(new GunControlSystem(this.keyPoll, this.creator), SystemPriorities.update);
-    this.engine.addSystem(new BulletAgeSystem(this.creator), SystemPriorities.update);
-    this.engine.addSystem(new DeathThroesSystem(this.creator), SystemPriorities.update);
-    this.engine.addSystem(new MovementSystem(this.config), SystemPriorities.move);
-    this.engine.addSystem(new CollisionSystem(this.creator), SystemPriorities.resolveCollisions);
-    this.engine.addSystem(new AnimationSystem(), SystemPriorities.animate);
-    this.engine.addSystem(new HudSystem(), SystemPriorities.animate);
-    this.engine.addSystem(new RenderSystem(this.container), SystemPriorities.render);
-    this.engine.addSystem(new AudioSystem(this.audioContext, this.audioDB), SystemPriorities.audio);
+  const promises = soundNames.map(name => loadSound(name));
+  await Promise.all(promises);
+  tickProvider.add(delta => engine.update(delta));
+  tickProvider.start();
 
-    this.creator.createWaitForClick();
-    this.creator.createGame();
-  }
+  engine.addSystem(new WaitForStartSystem(creator), SystemPriorities.preUpdate);
+  engine.addSystem(new GameManager(creator, config), SystemPriorities.preUpdate);
+  engine.addSystem(new MotionControlSystem(keyPoll), SystemPriorities.update);
+  engine.addSystem(new GunControlSystem(keyPoll, creator), SystemPriorities.update);
+  engine.addSystem(new BulletAgeSystem(creator), SystemPriorities.update);
+  engine.addSystem(new DeathThroesSystem(creator), SystemPriorities.update);
+  engine.addSystem(new MovementSystem(config), SystemPriorities.move);
+  engine.addSystem(new CollisionSystem(creator), SystemPriorities.resolveCollisions);
+  engine.addSystem(new AnimationSystem(), SystemPriorities.animate);
+  engine.addSystem(new HudSystem(), SystemPriorities.animate);
+  engine.addSystem(new RenderSystem(container), SystemPriorities.render);
+  engine.addSystem(new AudioSystem(audioContext, audioDB), SystemPriorities.audio);
+
+  creator.createWaitForClick();
+  creator.createGame();
 }
