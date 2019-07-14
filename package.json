@@ -15,7 +15,7 @@
   "author": "Grzegorz Michlicki <grzegorz@michlicki.pl>",
   "license": "MIT",
   "dependencies": {
-    "@ash.ts/ash": "^1.0.0"
+    "@ash.ts/ash": "^1.0.1"
   },
   "devDependencies": {
     "parcel": "^1.12.3",
