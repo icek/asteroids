@@ -25,8 +25,8 @@ export class WaitForStartView extends SVGView {
     this.addChild(this.clickToStart);
 
     // EVENTS
-    this.element.addEventListener('DOMNodeInsertedIntoDocument', this.addClickListener);
-    this.element.addEventListener('DOMNodeRemovedFromDocument', this.removeClickListener);
+    this.onAdded.add(this.addClickListener);
+    this.onRemoved.add(this.removeClickListener);
   }
 
   private dispatchClick = () => {

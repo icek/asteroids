@@ -1,3 +1,5 @@
+import { Signal0 } from '@ash.ts/ash';
+
 export class SVGView {
   public readonly element:SVGElement;
 
@@ -6,6 +8,10 @@ export class SVGView {
   public y:number = 0;
 
   public r:number = 0;
+
+  public onAdded:Signal0 = new Signal0();
+
+  public onRemoved:Signal0 = new Signal0();
 
   public constructor() {
     this.element = document.createElementNS('http://www.w3.org/2000/svg', 'g');

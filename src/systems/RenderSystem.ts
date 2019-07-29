@@ -21,11 +21,15 @@ export class RenderSystem extends System {
   }
 
   private addToDisplay = (node:RenderNode) => {
-    this.container.appendChild(node.display.displayObject.element);
+    const { displayObject } = node.display;
+    this.container.appendChild(displayObject.element);
+    displayObject.onAdded.dispatch();
   };
 
   private removeFromDisplay = (node:RenderNode) => {
+    const { displayObject } = node.display;
     this.container.removeChild(node.display.displayObject.element);
+    displayObject.onRemoved.dispatch();
   };
 
   public update(time:number):void {
