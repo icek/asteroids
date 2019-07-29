@@ -9,23 +9,29 @@
     "prebuild": "rimraf dist",
     "build": "rollup -c",
     "postbuild": "rimraf .tmp .rpt2_cache",
-    "tslint": "tslint -p tsconfig.json"
+    "lint": "eslint src/**/*.ts"
   },
   "keywords": [],
   "author": "Grzegorz Michlicki <grzegorz@michlicki.pl>",
   "license": "MIT",
   "dependencies": {
-    "@ash.ts/ash": "^1.0.1"
+    "@ash.ts/ash": "^1.0.2"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-import-resolver-typescript": "^1.1.1",
+    "eslint-plugin-import": "^2.18.2",
     "parcel": "^1.12.3",
     "rimraf": "^2.6.3",
-    "rollup": "^1.16.7",
+    "rollup": "^1.17.0",
     "rollup-plugin-fill-html": "^1.1.0",
     "rollup-plugin-html-entry": "^0.2.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.1",
-    "rollup-plugin-typescript2": "^0.22.0",
+    "rollup-plugin-typescript2": "^0.22.1",
     "rollup-plugin-url": "^2.2.2",
     "tslint": "^5.18.0",
     "tslint-config-airbnb-base": "^0.3.0",
