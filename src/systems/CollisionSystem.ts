@@ -2,8 +2,7 @@ import { Engine, NodeList, System } from '@ash.ts/ash';
 import { Position } from '../components';
 import { EntityCreator } from '../EntityCreator';
 import { AsteroidCollisionNode, BulletCollisionNode, GameNode, SpaceshipCollisionNode } from '../nodes';
-import asteroidSound from '../sounds/asteroid.mp3';
-import shipSound from '../sounds/ship.mp3';
+import { Sounds } from '../sounds';
 
 export class CollisionSystem extends System {
   private creator:EntityCreator;
@@ -44,7 +43,7 @@ export class CollisionSystem extends System {
             this.creator.createAsteroid(radius, x, y);
           }
           asteroid.asteroid.fsm.changeState('destroyed');
-          asteroid.audio.play(asteroidSound);
+          asteroid.audio.play(Sounds.asteroid);
           if (this.games!.head) {
             this.games!.head.state.hits += 1;
           }
@@ -58,7 +57,7 @@ export class CollisionSystem extends System {
         const distance = Position.distance(asteroid.position, spaceship.position);
         if (distance <= asteroid.collision.radius + spaceship.collision.radius) {
           spaceship.spaceship.fsm.changeState('destroyed');
-          spaceship.audio.play(shipSound);
+          spaceship.audio.play(Sounds.ship);
           if (this.games!.head) {
             this.games!.head.state.lives -= 1;
           }

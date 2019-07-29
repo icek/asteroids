@@ -1,9 +1,8 @@
 import { ListIteratingSystem } from '@ash.ts/ash';
-import { Gun, GunControls, Position } from '../components';
 import { EntityCreator } from '../EntityCreator';
 import { KeyPoll } from '../KeyPoll';
 import { GunControlNode } from '../nodes';
-import shootSound from '../sounds/shoot.mp3';
+import { Sounds } from '../sounds';
 
 export class GunControlSystem extends ListIteratingSystem<GunControlNode> {
   private keyPoll:KeyPoll;
@@ -25,7 +24,7 @@ export class GunControlSystem extends ListIteratingSystem<GunControlNode> {
     gun.timeSinceLastShot += time;
     if (gun.shooting && gun.timeSinceLastShot >= gun.minimumShotInterval) {
       this.creator.createUserBullet(gun, position);
-      node.audio.play(shootSound);
+      node.audio.play(Sounds.shoot);
       gun.timeSinceLastShot = 0;
     }
   }
