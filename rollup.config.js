@@ -25,7 +25,7 @@ export default {
     }),
     url({
       limit: 0,
-      include: ['**/*.mp3']
+      include: ['**/*.mp3', '**/*.ogg'],
     })
   ]
 };
