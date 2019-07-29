@@ -9,11 +9,14 @@ export class CollisionSystem extends System {
   private creator:EntityCreator;
 
   private games:NodeList<GameNode> | null = null;
+
   private spaceships:NodeList<SpaceshipCollisionNode> | null = null;
+
   private asteroids:NodeList<AsteroidCollisionNode> | null = null;
+
   private bullets:NodeList<BulletCollisionNode> | null = null;
 
-  constructor(creator:EntityCreator) {
+  public constructor(creator:EntityCreator) {
     super();
     this.creator = creator;
   }
@@ -43,7 +46,7 @@ export class CollisionSystem extends System {
           asteroid.asteroid.fsm.changeState('destroyed');
           asteroid.audio.play(asteroidSound);
           if (this.games!.head) {
-            this.games!.head.state.hits++;
+            this.games!.head.state.hits += 1;
           }
           break;
         }
@@ -57,7 +60,7 @@ export class CollisionSystem extends System {
           spaceship.spaceship.fsm.changeState('destroyed');
           spaceship.audio.play(shipSound);
           if (this.games!.head) {
-            this.games!.head.state.lives--;
+            this.games!.head.state.lives -= 1;
           }
           break;
         }

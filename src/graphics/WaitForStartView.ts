@@ -1,13 +1,14 @@
-import { SVGView } from './SVGView';
 import { Signal0 } from '@ash.ts/ash';
+import { SVGView } from './SVGView';
 
 export class WaitForStartView extends SVGView {
   private readonly gameOver:SVGView;
+
   private readonly clickToStart:SVGView;
 
   public click:Signal0 = new Signal0();
 
-  constructor() {
+  public constructor() {
     super();
 
     // GAME OVER

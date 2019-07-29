@@ -2,10 +2,12 @@ export class SVGView {
   public readonly element:SVGElement;
 
   public x:number = 0;
+
   public y:number = 0;
+
   public r:number = 0;
 
-  constructor() {
+  public constructor() {
     this.element = document.createElementNS('http://www.w3.org/2000/svg', 'g');
   }
 
@@ -26,11 +28,11 @@ export class SVGView {
     return this;
   }
 
-  public addChild(child:SVGView) {
+  public addChild(child:SVGView):void {
     this.element.appendChild(child.element);
   }
 
-  public removeChild(child:SVGView) {
+  public removeChild(child:SVGView):void {
     this.element.removeChild(child.element);
   }
 }

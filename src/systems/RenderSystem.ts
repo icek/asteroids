@@ -2,10 +2,13 @@ import { Engine, NodeList, System } from '@ash.ts/ash';
 import { RenderNode } from '../nodes';
 
 export class RenderSystem extends System {
+  public container:HTMLElement;
+
   private nodes:NodeList<RenderNode> | null = null;
 
-  constructor(public container:HTMLElement) {
+  public constructor(container:HTMLElement) {
     super();
+    this.container = container;
   }
 
   public addToEngine(engine:Engine):void {

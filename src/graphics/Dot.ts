@@ -2,9 +2,10 @@ import { SVGView } from './SVGView';
 
 export class Dot extends SVGView {
   public velocityX:number;
+
   public velocityY:number;
 
-  constructor(maxDistance:number) {
+  public constructor(maxDistance:number) {
     super();
 
     const angle:number = Math.random() * 2 * Math.PI;

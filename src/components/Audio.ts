@@ -5,4 +5,3 @@ export class Audio {
     this.toPlay.push(sound);
   }
 }
-

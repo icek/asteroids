@@ -2,9 +2,10 @@ import { SVGView } from './SVGView';
 
 export class HudView extends SVGView {
   private readonly score:SVGView;
+
   private readonly lives:SVGView;
 
-  constructor() {
+  public constructor() {
     super();
     this.setTransform(400, 50);
 

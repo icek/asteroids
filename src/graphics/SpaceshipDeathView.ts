@@ -3,15 +3,22 @@ import { SVGView } from './SVGView';
 
 export class SpaceshipDeathView extends SVGView implements Animatable {
   private readonly shape1:SVGView;
+
   private readonly shape2:SVGView;
+
   private readonly vel1x:number;
+
   private readonly vel1y:number;
+
   private readonly vel2x:number;
+
   private readonly vel2y:number;
+
   private readonly rot1:number;
+
   private readonly rot2:number;
 
-  constructor() {
+  public constructor() {
     super();
 
     this.shape1 = new SVGView().setContent('<path d="M10 0 L-7 7 L-4 0 L10 0" fill="#fff"/>');
