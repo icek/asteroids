@@ -27,7 +27,7 @@ const sounds = [
   },
 ];
 
-const audioTypeDetect = () => {
+function audioTypeDetect():'mp3' | 'ogg' | null {
   const audio = document.createElement('audio');
   const canPlayMp3 = audio.canPlayType('audio/mpeg');
   const canPlayOgg = audio.canPlayType('audio/ogg');
@@ -45,20 +45,17 @@ const audioTypeDetect = () => {
   }
 
   return type;
-};
+}
 
-export async function loadAudioDB(audioContext:AudioContext) {
+export async function loadAudioDB(audioContext:AudioContext):Promise<Map<Sounds, AudioBuffer>> {
   const audioDB = new Map<Sounds, AudioBuffer>();
-  let type = audioTypeDetect();
+  const type = audioTypeDetect();
 
   const loadSound = async (url:string, key:Sounds):Promise<any> => {
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
-    try {
-      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-      audioDB.set(key, audioBuffer);
-    } catch (e) {
-    }
+    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+    audioDB.set(key, audioBuffer);
   };
 
   if (type) {
