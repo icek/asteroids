@@ -47,7 +47,7 @@ const audioTypeDetect = () => {
   return type;
 };
 
-export const loadAudioDB = async (audioContext:AudioContext) => {
+export async function loadAudioDB(audioContext:AudioContext) {
   const audioDB = new Map<Sounds, AudioBuffer>();
   let type = audioTypeDetect();
 
@@ -66,4 +66,4 @@ export const loadAudioDB = async (audioContext:AudioContext) => {
   }
 
   return audioDB;
-};
+}
