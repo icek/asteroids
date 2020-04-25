@@ -1,31 +1,38 @@
-import html from 'rollup-plugin-fill-html';
-import htmlEntry from 'rollup-plugin-html-entry';
-import resolve from 'rollup-plugin-node-resolve';
+import html from '@rollup/plugin-html';
+import resolve from '@rollup/plugin-node-resolve';
+import url from '@rollup/plugin-url';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
-import url from 'rollup-plugin-url';
+import { template } from './template';
+
+
+const deps = [{
+  name: '@ash.ts/ash',
+  global: 'ASH',
+  path: '/dist/ash.min.js',
+}];
+
+const globals = deps.reduce((glob, dep) => {
+  glob[dep.name] = dep.global;
+  return glob;
+}, {});
+
+const external = Object.keys(globals);
 
 export default {
-  input: 'src/index.html',
+  external,
+  input: 'src/index.ts',
   output: {
+    globals,
     file: 'dist/asteroids.js',
     format: 'iife',
-    sourcemap: false
+    sourcemap: false,
   },
   plugins: [
-    resolve(),
+    resolve({ preferBuiltins: true }),
     typescript(),
-    terser(),
-    htmlEntry({
-      output: '.tmp',
-    }),
-    html({
-      template: '.tmp/src/index.html',
-      filename: 'index.html',
-    }),
-    url({
-      limit: 0,
-      include: ['**/*.mp3', '**/*.ogg'],
-    })
-  ]
+    terser({ output: { comments: false } }),
+    html({ template: template(deps) }),
+    url({ limit: 0, include: ['**/*.mp3', '**/*.ogg'] }),
+  ],
 };

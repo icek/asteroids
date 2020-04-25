@@ -3,7 +3,7 @@ import { Dot } from './Dot';
 import { SVGView } from './SVGView';
 
 export class AsteroidDeathView extends SVGView implements Animatable {
-  private static numDots:number = 8;
+  private static numDots = 8;
 
   private dots:Dot[] = [];
 

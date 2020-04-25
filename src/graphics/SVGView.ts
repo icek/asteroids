@@ -3,11 +3,11 @@ import { Signal0 } from '@ash.ts/ash';
 export class SVGView {
   public readonly element:SVGElement;
 
-  public x:number = 0;
+  public x = 0;
 
-  public y:number = 0;
+  public y = 0;
 
-  public r:number = 0;
+  public r = 0;
 
   public onAdded:Signal0 = new Signal0();
 
@@ -17,11 +17,11 @@ export class SVGView {
     this.element = document.createElementNS('http://www.w3.org/2000/svg', 'g');
   }
 
-  public setTransform(x:number = 0, y:number = 0, r:number = 0):this {
+  public setTransform(x = 0, y = 0, r = 0):this {
     this.x = x;
     this.y = y;
     this.r = r;
-    return this.setAttribute('transform', `translate(${x}, ${y}) rotate(${r * 180 / Math.PI})`);
+    return this.setAttribute('transform', `translate(${x}, ${y}) rotate(${(r * 180) / Math.PI})`);
   }
 
   public setContent(content:string):this {

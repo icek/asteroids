@@ -20,13 +20,13 @@ export class RenderSystem extends System {
     this.nodes.nodeRemoved.add(this.removeFromDisplay);
   }
 
-  private addToDisplay = (node:RenderNode) => {
+  private addToDisplay = (node:RenderNode):void => {
     const { displayObject } = node.display;
     this.container.appendChild(displayObject.element);
     displayObject.onAdded.dispatch();
   };
 
-  private removeFromDisplay = (node:RenderNode) => {
+  private removeFromDisplay = (node:RenderNode):void => {
     const { displayObject } = node.display;
     this.container.removeChild(node.display.displayObject.element);
     displayObject.onRemoved.dispatch();

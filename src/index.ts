@@ -1,8 +1,8 @@
 import { asteroids } from './Asteroids';
 
-window.addEventListener('load', async function() {
+window.addEventListener('load', async () => {
   const canvas = document.getElementById('game');
-  if(!canvas) {
+  if (!canvas) {
     return;
   }
 

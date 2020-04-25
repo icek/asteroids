@@ -29,15 +29,15 @@ export class WaitForStartView extends SVGView {
     this.onRemoved.add(this.removeClickListener);
   }
 
-  private dispatchClick = () => {
+  private dispatchClick = ():void => {
     this.click.dispatch();
   };
 
-  private addClickListener = () => {
+  private addClickListener = ():void => {
     window.addEventListener('click', this.dispatchClick);
   };
 
-  private removeClickListener = () => {
+  private removeClickListener = ():void => {
     window.removeEventListener('click', this.dispatchClick);
     this.gameOver.setContent('<text class="h1">GAME OVER</text>');
   };

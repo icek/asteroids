@@ -5,7 +5,7 @@ export class Position {
 
   public rotation:number;
 
-  public constructor(x:number, y:number, rotation:number = 0) {
+  public constructor(x:number, y:number, rotation = 0) {
     this.x = x;
     this.y = y;
     this.rotation = rotation;
