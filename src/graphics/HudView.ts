@@ -9,7 +9,6 @@ export class HudView extends SVGView {
     super();
     this.setTransform(400, 50);
 
-
     this.score = new SVGView()
       .setTransform(-200, 0);
 
