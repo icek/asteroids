@@ -26,7 +26,7 @@ jobs:
       - name: Linting code
         run: npm run lint
 
-      - name: Build library
+      - name: Build game
         run: npm run build
 
       - name: Publish to GitHub Pages
